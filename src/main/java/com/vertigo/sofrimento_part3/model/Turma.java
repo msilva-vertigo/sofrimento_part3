@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.vertigo.sofrimento_part3.model.Enums.Periodo;
@@ -20,7 +21,7 @@ public class Turma {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer idTurma;
 	
-	@Column(name="dataInicial")
+	@Column(name="datainicial")
 	private Date dataInicial;
 	
 	@Column(name="dataFinal")

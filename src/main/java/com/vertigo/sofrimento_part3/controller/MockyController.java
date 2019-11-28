@@ -1,6 +1,5 @@
 package com.vertigo.sofrimento_part3.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.vertigo.sofrimento_part3.model.Aluno;
 import com.vertigo.sofrimento_part3.model.Curso;
 import com.vertigo.sofrimento_part3.model.Employee;
-import com.vertigo.sofrimento_part3.model.Professor;
-import com.vertigo.sofrimento_part3.model.Enums.Sexo;
+import com.vertigo.sofrimento_part3.model.Turma;
+import com.vertigo.sofrimento_part3.repository.AlunoRepository;
 import com.vertigo.sofrimento_part3.repository.CursoRepository;
+import com.vertigo.sofrimento_part3.repository.TurmaRepository;
 import com.vertigo.sofrimento_part3.utils.Utils;
 
 @RestController
@@ -31,6 +32,12 @@ import com.vertigo.sofrimento_part3.utils.Utils;
 public class MockyController {
 	@Autowired
 	private CursoRepository cursoRepo;
+	
+	@Autowired
+	private TurmaRepository turmaRepo;
+	
+	@Autowired
+	private AlunoRepository alunoRepo;
 	
 	@RequestMapping(value="/listar")
 	public ResponseEntity<String> listaTodosEmployees(@RequestHeader("mocky") String mockyUrl) {	
@@ -98,18 +105,35 @@ public class MockyController {
 		
 	}
 	
-	@RequestMapping(value = "/curso", method = RequestMethod.GET,
+	@RequestMapping(value = "/teste", method = RequestMethod.GET,
 			produces = { "application/json"})
 	public ResponseEntity<String> testaBancoNovo(){
-		Curso curso = new Curso();
-		curso.setNome("Senai");
-		cursoRepo.save(curso);
+		/*
+		 * Curso curso = new Curso(); curso.setNome("Senai"); cursoRepo.save(curso);
+		 */
 		
-		Professor professor = new Professor();
-		professor.setDataDeNascimento(new Date());
-		professor.setNome("Tia cocota");
-		professor.setSexo(Sexo.F);
-		return ResponseEntity.ok(Utils.toJSON(professor));
+		Curso curso = new Curso();
+		curso.setId(9);
+		curso.setNome("testeCurspkoihjophjoo");
+	//	cursoRepo.save(curso);
+		
+		Turma turma = new Turma();
+		turma.setDescricao("turma de verao");
+		turma.setCurso(curso);
+	//	turmaRepo.save(turma);
+		
+		Aluno aluno = new Aluno();
+		aluno.setNome("dumbledore");
+		alunoRepo.save(aluno);
+		List<Aluno>alunoList = alunoRepo.findAll();
+		
+		return ResponseEntity.ok(Utils.toJSON(alunoList));
+		
+		/*
+		 * Professor professor = new Professor(); professor.setDataDeNascimento(new
+		 * Date()); professor.setNome("Tia cocota"); professor.setSexo(Sexo.F); return
+		 * ResponseEntity.ok(Utils.toJSON(professor));
+		 */
 	}
 	
 }
