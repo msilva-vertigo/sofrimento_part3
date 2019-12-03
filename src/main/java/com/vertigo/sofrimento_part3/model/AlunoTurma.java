@@ -1,49 +1,61 @@
 package com.vertigo.sofrimento_part3.model;
 
-import java.util.Date;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-
-@Table(name="alunoTurma")
 public class AlunoTurma {
 
+	@ManyToOne(targetEntity = Turma.class)
+	@JoinColumn(name = "idTurma", referencedColumnName = "id_turma")
+	private Turma turma;
 	
-	@OneToMany
+	@ManyToOne(targetEntity = Aluno.class)
+	@JoinColumn(name = "idAluno", referencedColumnName = "id_aluno")
 	private Aluno aluno;
-	
-	@Column(name = "dataMatricula")
-	private Date dataMatricula;
-	
-	@Column(name = "dataCancelamento")
-	private Date dataCancelamento;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
 	
 	public AlunoTurma() {}
 	
-	public AlunoTurma(Date dataMatricula, Date dataCancelamento) {
+
+
+	public AlunoTurma(Turma turma, Aluno aluno, Integer id) {
 		super();
-		this.dataMatricula = dataMatricula;
-		this.dataCancelamento = dataCancelamento;
+		this.turma = turma;
+		this.aluno = aluno;
+		this.id = id;
 	}
 
-	public Date getDataMatricula() {
-		return dataMatricula;
+
+
+	public Turma getTurma() {
+		return turma;
 	}
 
-	public void setDataMatricula(Date dataMatricula) {
-		this.dataMatricula = dataMatricula;
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 
-	public Date getDataCancelamento() {
-		return dataCancelamento;
+	public Aluno getAluno() {
+		return aluno;
 	}
 
-	public void setDataCancelamento(Date dataCancelamento) {
-		this.dataCancelamento = dataCancelamento;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	
 }

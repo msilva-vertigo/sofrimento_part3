@@ -1,12 +1,15 @@
 package com.vertigo.sofrimento_part3.model;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,6 +19,18 @@ import com.vertigo.sofrimento_part3.model.Enums.Periodo;
 @Entity
 @Table(name="turma")
 public class Turma {
+	
+	@OneToMany(targetEntity = AlunoTurma.class)
+	@JoinColumn(name = "aluno_turma_id")
+	private Set<AlunoTurma> alunoTurma;
+	/*
+	 * @ManyToMany
+	 * 
+	 * @JoinTable(name = "alunoTurma", joinColumns = @JoinColumn(name = "idTurma"),
+	 * inverseJoinColumns = @JoinColumn(name = "idAluno")) private List<Aluno>
+	 * aluno;
+	 */
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -39,8 +54,13 @@ public class Turma {
 	@Column(name="descricao", length = 100)
 	private String descricao;
 	
+
+	
 	@ManyToOne
 	private Curso curso;
+	
+
+
 
 	public Turma() {}
 	
@@ -55,6 +75,8 @@ public class Turma {
 		this.descricao = descricao;
 		this.curso = curso;
 	}
+	
+
 
 	public Integer getIdTurma() {
 		return idTurma;
@@ -119,7 +141,14 @@ public class Turma {
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-	
-	
+
+	public Set<AlunoTurma> getAlunoTurma() {
+		return alunoTurma;
+	}
+
+	public void setAlunoTurma(Set<AlunoTurma> alunoTurma) {
+		this.alunoTurma = alunoTurma;
+	}
+
 	
 }

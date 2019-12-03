@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.vertigo.sofrimento_part3.model.Aluno;
-import com.vertigo.sofrimento_part3.model.Curso;
 import com.vertigo.sofrimento_part3.model.Employee;
 import com.vertigo.sofrimento_part3.model.Turma;
 import com.vertigo.sofrimento_part3.repository.AlunoRepository;
@@ -38,6 +37,7 @@ public class MockyController {
 	
 	@Autowired
 	private AlunoRepository alunoRepo;
+	
 	
 	@RequestMapping(value="/listar")
 	public ResponseEntity<String> listaTodosEmployees(@RequestHeader("mocky") String mockyUrl) {	
@@ -108,32 +108,31 @@ public class MockyController {
 	@RequestMapping(value = "/teste", method = RequestMethod.GET,
 			produces = { "application/json"})
 	public ResponseEntity<String> testaBancoNovo(){
-		/*
-		 * Curso curso = new Curso(); curso.setNome("Senai"); cursoRepo.save(curso);
-		 */
-		
-		Curso curso = new Curso();
-		curso.setId(9);
-		curso.setNome("testeCurspkoihjophjoo");
-	//	cursoRepo.save(curso);
+
+		Aluno aluno = new Aluno();
+		aluno.setNome("joao");
+		aluno.setNome("maria");
 		
 		Turma turma = new Turma();
-		turma.setDescricao("turma de verao");
-		turma.setCurso(curso);
-	//	turmaRepo.save(turma);
+		turma.setDescricao("verao");
+		turma.setDescricao("inverno");
 		
-		Aluno aluno = new Aluno();
-		aluno.setNome("dumbledore");
-		alunoRepo.save(aluno);
-		List<Aluno>alunoList = alunoRepo.findAll();
+		//turma.setAluno(aluno);
+		turmaRepo.save(turma);
 		
-		return ResponseEntity.ok(Utils.toJSON(alunoList));
 		
+		
+
 		/*
-		 * Professor professor = new Professor(); professor.setDataDeNascimento(new
-		 * Date()); professor.setNome("Tia cocota"); professor.setSexo(Sexo.F); return
-		 * ResponseEntity.ok(Utils.toJSON(professor));
+		 * Aluno aluno = new Aluno(); aluno.setNome("docker"); alunoRepo.save(aluno);
+		 * 
+		 * Turma turma = new Turma(); turma.setDescricao("turma de verao2");
+		 * turmaRepo.save(turma);
 		 */
+
+		
+		return ResponseEntity.ok(Utils.toJSON(turma));
+
 	}
 	
 }

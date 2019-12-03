@@ -1,12 +1,15 @@
 package com.vertigo.sofrimento_part3.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.vertigo.sofrimento_part3.model.Enums.EstadoCivil;
@@ -15,10 +18,21 @@ import com.vertigo.sofrimento_part3.model.Enums.Sexo;
 @Entity
 @Table(name="aluno")
 public class Aluno {
+
+	/*
+	 * @ManyToMany(mappedBy = "aluno") private List<Turma> turma;
+	 */
 	
-		@Id
+	@OneToMany(targetEntity = AlunoTurma.class)
+	@JoinColumn(name = "aluno_turma_id")
+	private Set<AlunoTurma> alunoTurma;
+	
+
+	@Id
 		@GeneratedValue(strategy=GenerationType.AUTO)
 		private Integer idAluno;
+		
+		
 		
 		@Column(name="sexo", length = 1)
 		private Sexo sexo;
@@ -37,6 +51,7 @@ public class Aluno {
 		
 		@Column(name="estadoCivil", length = 50)
 		private EstadoCivil estadoCivil;
+		
 
 		public Aluno(){}
 
@@ -106,6 +121,10 @@ public class Aluno {
 		public void setEstadoCivil(EstadoCivil estadoCivil) {
 			this.estadoCivil = estadoCivil;
 		}
+
+
+	
+
 		
 		
 }
